@@ -180,18 +180,24 @@
                                 <rect key="frame" x="53" y="338" width="34" height="30"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
-                                    <action selector="saveSightChanges:" destination="BfB-Pm-ElR" eventType="touchUpInside" id="5gc-fB-Qzh"/>
+                                    <action selector="saveSightChanges:" destination="BfB-Pm-ElR" eventType="touchUpInside" id="NYk-uM-FLi"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sy-Sa-BMI">
                                 <rect key="frame" x="158" y="338" width="48" height="30"/>
                                 <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelSightChanges:" destination="BfB-Pm-ElR" eventType="touchUpInside" id="OIv-pd-d6i"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="c2D-JH-juz" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xrt-4c-HRE" secondAttribute="trailing" symbolic="YES" id="47q-up-upK"/>
                             <constraint firstItem="dQU-8a-7MS" firstAttribute="trailing" secondItem="z2F-G6-OBv" secondAttribute="trailing" id="5hc-3K-Sqa"/>
                             <constraint firstItem="z2F-G6-OBv" firstAttribute="top" secondItem="Fdt-Xn-woa" secondAttribute="bottom" constant="8" symbolic="YES" id="6Eq-qe-tfZ"/>
+                            <constraint firstItem="c2D-JH-juz" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6sy-Sa-BMI" secondAttribute="trailing" symbolic="YES" id="7yV-2u-Pnp"/>
+                            <constraint firstItem="c2D-JH-juz" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9gz-hD-idc" secondAttribute="trailing" symbolic="YES" id="8Wl-BD-9SR"/>
                             <constraint firstItem="z2F-G6-OBv" firstAttribute="trailing" secondItem="Ol1-QW-zJW" secondAttribute="trailing" id="Civ-AJ-FNQ"/>
                             <constraint firstItem="c2D-JH-juz" firstAttribute="trailing" secondItem="dQU-8a-7MS" secondAttribute="trailing" constant="60" id="JM2-1B-hAe"/>
                             <constraint firstItem="9gz-hD-idc" firstAttribute="leading" secondItem="Ol1-QW-zJW" secondAttribute="leading" id="Kl0-xY-jAc"/>
@@ -203,6 +209,7 @@
                             <constraint firstItem="Fdt-Xn-woa" firstAttribute="top" secondItem="dQU-8a-7MS" secondAttribute="bottom" constant="2" id="Ymm-b9-hZb"/>
                             <constraint firstItem="xrt-4c-HRE" firstAttribute="leading" secondItem="dQU-8a-7MS" secondAttribute="leading" id="Zvm-7S-B5j"/>
                             <constraint firstItem="6sy-Sa-BMI" firstAttribute="leading" secondItem="8SU-1J-7c4" secondAttribute="trailing" constant="71" id="gtg-iG-nbO"/>
+                            <constraint firstItem="c2D-JH-juz" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Fdt-Xn-woa" secondAttribute="trailing" symbolic="YES" id="hHh-WI-w9B"/>
                             <constraint firstItem="Fdt-Xn-woa" firstAttribute="leading" secondItem="z2F-G6-OBv" secondAttribute="leading" id="mHT-ag-Xw6"/>
                             <constraint firstItem="dQU-8a-7MS" firstAttribute="leading" secondItem="Fdt-Xn-woa" secondAttribute="leading" id="otz-bj-L4Z"/>
                             <constraint firstItem="xrt-4c-HRE" firstAttribute="top" secondItem="c2D-JH-juz" secondAttribute="top" constant="16" id="qTf-OB-0Qr"/>

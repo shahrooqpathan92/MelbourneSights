@@ -39,7 +39,7 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
         createDefaultSights()
         filteredSights = allSights
         
-        
+        print("HOW MANY TIMES DOES IT COME HERE")
         //Adding a Search Controller with proper settings
         let searchController = UISearchController(searchResultsController: nil);
         searchController.searchResultsUpdater = self
@@ -129,6 +129,13 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
 //            return
 //        }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+        
+        
+ 
     
     /*
     // Override to support conditional editing of the table view.

@@ -26,6 +26,11 @@ class EditSightViewController: UIViewController {
     }
     
 
+    @IBAction func cancelSightChanges(_ sender: Any) {
+        //self.navigationController?.popToViewController( UIViewController, animated: true)
+        navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func saveSightChanges(_ sender: Any) {
         sight?.sightName = name.text!
         sight?.sightDesc = desc.text!

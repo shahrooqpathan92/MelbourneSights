@@ -17,6 +17,7 @@ class SightDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("WTF")
         if sight != nil {
             sightName.text = sight?.sightName
             sightDetails.text = sight?.sightDesc
@@ -35,6 +36,11 @@ class SightDetailsViewController: UIViewController {
             controller.sight = sight
         }
     }
- 
+    
+    //To refresh view
+    override func viewWillAppear(_ animated: Bool) {
+        //self.viewDidLoad()
+        self.viewDidLoad()
+    }
 
 }
