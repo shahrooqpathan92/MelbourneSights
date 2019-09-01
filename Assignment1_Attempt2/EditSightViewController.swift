@@ -26,6 +26,12 @@ class EditSightViewController: UIViewController {
     }
     
 
+    @IBAction func saveSightChanges(_ sender: Any) {
+        sight?.sightName = name.text!
+        sight?.sightDesc = desc.text!
+        sight?.sightIcon = icon.text!
+        
+    }
     /*
     // MARK: - Navigation
 
