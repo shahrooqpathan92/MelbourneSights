@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0037D9F4231E25EE00B0AF39 /* SightsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0037D9F2231E25EE00B0AF39 /* SightsModel.xcdatamodeld */; };
+		0037DA03231E293100B0AF39 /* Place+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0037DA01231E293100B0AF39 /* Place+CoreDataClass.swift */; };
+		0037DA04231E293100B0AF39 /* Place+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0037DA02231E293100B0AF39 /* Place+CoreDataProperties.swift */; };
+		0037DA07231E2A6400B0AF39 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0037DA06231E2A6400B0AF39 /* DatabaseProtocol.swift */; };
+		0037DA0B231E354500B0AF39 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0037DA0A231E354500B0AF39 /* CoreDataController.swift */; };
 		00720BAB231A696C00C82984 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00720BAA231A696C00C82984 /* AppDelegate.swift */; };
 		00720BB0231A696C00C82984 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00720BAE231A696C00C82984 /* Main.storyboard */; };
 		00720BB2231A697000C82984 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00720BB1231A697000C82984 /* Assets.xcassets */; };
@@ -21,6 +26,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0037D9F3231E25EE00B0AF39 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		0037DA01231E293100B0AF39 /* Place+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Place+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0037DA02231E293100B0AF39 /* Place+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Place+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0037DA06231E2A6400B0AF39 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
+		0037DA0A231E354500B0AF39 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		00720BA7231A696C00C82984 /* Assignment1_Attempt2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment1_Attempt2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00720BAA231A696C00C82984 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00720BAF231A696C00C82984 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -47,6 +57,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0037D9F1231E24E100B0AF39 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				0037DA01231E293100B0AF39 /* Place+CoreDataClass.swift */,
+				0037DA02231E293100B0AF39 /* Place+CoreDataProperties.swift */,
+				0037D9F2231E25EE00B0AF39 /* SightsModel.xcdatamodeld */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		0037DA05231E29C600B0AF39 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				0037DA06231E2A6400B0AF39 /* DatabaseProtocol.swift */,
+				0037DA0A231E354500B0AF39 /* CoreDataController.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		00720B9E231A696C00C82984 = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +95,8 @@
 		00720BA9231A696C00C82984 /* Assignment1_Attempt2 */ = {
 			isa = PBXGroup;
 			children = (
+				0037DA05231E29C600B0AF39 /* Database */,
+				0037D9F1231E24E100B0AF39 /* DataModel */,
 				00720BAA231A696C00C82984 /* AppDelegate.swift */,
 				00720BAE231A696C00C82984 /* Main.storyboard */,
 				00720BB1231A697000C82984 /* Assets.xcassets */,
@@ -158,6 +189,11 @@
 				00BEC142231BB5AE00A8286A /* AddNewSightViewController.swift in Sources */,
 				00BEC140231BAF9B00A8286A /* SightDetailsViewController.swift in Sources */,
 				00BEC148231BCC2700A8286A /* EditSightViewController.swift in Sources */,
+				0037DA04231E293100B0AF39 /* Place+CoreDataProperties.swift in Sources */,
+				0037DA03231E293100B0AF39 /* Place+CoreDataClass.swift in Sources */,
+				0037D9F4231E25EE00B0AF39 /* SightsModel.xcdatamodeld in Sources */,
+				0037DA0B231E354500B0AF39 /* CoreDataController.swift in Sources */,
+				0037DA07231E2A6400B0AF39 /* DatabaseProtocol.swift in Sources */,
 				00720BAB231A696C00C82984 /* AppDelegate.swift in Sources */,
 				00720BBD231A6A0F00C82984 /* Sight.swift in Sources */,
 				00720BC1231A787700C82984 /* SightTableViewCell.swift in Sources */,
@@ -358,6 +394,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0037D9F2231E25EE00B0AF39 /* SightsModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0037D9F3231E25EE00B0AF39 /* Model.xcdatamodel */,
+			);
+			currentVersion = 0037D9F3231E25EE00B0AF39 /* Model.xcdatamodel */;
+			path = SightsModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 00720B9F231A696C00C82984 /* Project object */;
 }
