@@ -19,6 +19,7 @@
 		00720BBD231A6A0F00C82984 /* Sight_OLD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00720BBC231A6A0F00C82984 /* Sight_OLD.swift */; };
 		00720BBF231A6A7A00C82984 /* SightListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00720BBE231A6A7A00C82984 /* SightListTableViewController.swift */; };
 		00720BC1231A787700C82984 /* SightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00720BC0231A787700C82984 /* SightTableViewCell.swift */; };
+		00A7CCA52320332700CF4C58 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A7CCA42320332700CF4C58 /* MapViewController.swift */; };
 		00BEC140231BAF9B00A8286A /* SightDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BEC13F231BAF9B00A8286A /* SightDetailsViewController.swift */; };
 		00BEC142231BB5AE00A8286A /* AddNewSightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BEC141231BB5AE00A8286A /* AddNewSightViewController.swift */; };
 		00BEC146231BBECB00A8286A /* AddSightDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BEC145231BBECB00A8286A /* AddSightDelegate.swift */; };
@@ -41,6 +42,7 @@
 		00720BBC231A6A0F00C82984 /* Sight_OLD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sight_OLD.swift; sourceTree = "<group>"; };
 		00720BBE231A6A7A00C82984 /* SightListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightListTableViewController.swift; sourceTree = "<group>"; };
 		00720BC0231A787700C82984 /* SightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightTableViewCell.swift; sourceTree = "<group>"; };
+		00A7CCA42320332700CF4C58 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		00BEC13F231BAF9B00A8286A /* SightDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightDetailsViewController.swift; sourceTree = "<group>"; };
 		00BEC141231BB5AE00A8286A /* AddNewSightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewSightViewController.swift; sourceTree = "<group>"; };
 		00BEC145231BBECB00A8286A /* AddSightDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSightDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				00BEC141231BB5AE00A8286A /* AddNewSightViewController.swift */,
 				00BEC145231BBECB00A8286A /* AddSightDelegate.swift */,
 				00BEC147231BCC2700A8286A /* EditSightViewController.swift */,
+				00A7CCA42320332700CF4C58 /* MapViewController.swift */,
 			);
 			path = Assignment1_Attempt2;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				0037DA07231E2A6400B0AF39 /* DatabaseProtocol.swift in Sources */,
 				00720BAB231A696C00C82984 /* AppDelegate.swift in Sources */,
 				00720BBD231A6A0F00C82984 /* Sight_OLD.swift in Sources */,
+				00A7CCA52320332700CF4C58 /* MapViewController.swift in Sources */,
 				00720BC1231A787700C82984 /* SightTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

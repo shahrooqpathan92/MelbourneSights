@@ -18,6 +18,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VeH-cv-O6W">
+                            <rect key="frame" x="0.0" y="161.5" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Go To Maps"/>
+                            <connections>
+                                <segue destination="fRe-s9-gpZ" kind="show" id="E3r-wQ-fGz"/>
+                            </connections>
+                        </button>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="sightCell" id="FvY-Gh-0Ra" customClass="SightTableViewCell" customModule="Assignment1_Attempt2" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
@@ -79,6 +87,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mJ0-6r-itJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="414" y="68"/>
+        </scene>
+        <!--Sight Map-->
+        <scene sceneID="QN0-4T-eeU">
+            <objects>
+                <viewController title="Sight Map" id="fRe-s9-gpZ" customClass="MapViewController" customModule="Assignment1_Attempt2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ndm-C1-MZj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Mq6-d9-Zeb">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Mq6-d9-Zeb" secondAttribute="trailing" id="DTJ-NK-Bt3"/>
+                            <constraint firstItem="Mq6-d9-Zeb" firstAttribute="leading" secondItem="ndm-C1-MZj" secondAttribute="leading" id="N5T-7v-nSz"/>
+                            <constraint firstItem="Mq6-d9-Zeb" firstAttribute="bottom" secondItem="hVH-ZR-nVO" secondAttribute="bottom" id="SQ5-lw-SYN"/>
+                            <constraint firstItem="Mq6-d9-Zeb" firstAttribute="top" secondItem="hVH-ZR-nVO" secondAttribute="top" id="tZh-dm-Zcf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="hVH-ZR-nVO"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="Mq6-d9-Zeb" id="LWx-9q-qr4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ppy-aH-zGk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53.600000000000001" y="921.58920539730138"/>
         </scene>
         <!--Sight Details-->
         <scene sceneID="bSd-ai-GoI">
