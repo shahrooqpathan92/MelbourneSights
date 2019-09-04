@@ -1,4 +1,4 @@
-//
+	//
 //  AddNewSightViewController.swift
 //  Assignment1_Attempt2
 //
@@ -10,7 +10,8 @@ import UIKit
 
 class AddNewSightViewController: UIViewController {
 
-    weak var sightDelegate: AddSightDelegate?
+    //weak var sightDelegate: AddSightDelegate?
+    weak var databaseController: DatabaseProtocol?
     
     
     @IBOutlet weak var iconTextField: UITextField!
@@ -19,21 +20,24 @@ class AddNewSightViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        //Get the database controller once from the App Delegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        databaseController = appDelegate.databaseController
+        
     }
     
     
     
-    @IBAction func createSight(_ sender: Any) {
+ 	   @IBAction func createSight(_ sender: Any) {
         
         if nameTextField.text != "" && descTextField.text != "" && iconTextField.text != "" {
             let name = nameTextField.text!
             let desc = descTextField.text!
             let icon = iconTextField.text!
             
-            let sight = Sight(sightName: name, sightDesc: desc, sightIcon: icon)
-            let _ = sightDelegate?.addSight(newSight: sight)
-            
+            //let sight = Sight(sightName: name, sightDesc: desc, sightIcon: icon)
+            //let _ = sightDelegate?.addSight(newSight: sight)
+            let _ = databaseController!.addSight(name: name, desc: desc, icon: icon)
             navigationController?.popViewController(animated: true)
             return
         }

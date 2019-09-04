@@ -16,13 +16,14 @@
 		00720BB0231A696C00C82984 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00720BAE231A696C00C82984 /* Main.storyboard */; };
 		00720BB2231A697000C82984 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00720BB1231A697000C82984 /* Assets.xcassets */; };
 		00720BB5231A697000C82984 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00720BB3231A697000C82984 /* LaunchScreen.storyboard */; };
-		00720BBD231A6A0F00C82984 /* Sight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00720BBC231A6A0F00C82984 /* Sight.swift */; };
+		00720BBD231A6A0F00C82984 /* Sight_OLD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00720BBC231A6A0F00C82984 /* Sight_OLD.swift */; };
 		00720BBF231A6A7A00C82984 /* SightListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00720BBE231A6A7A00C82984 /* SightListTableViewController.swift */; };
 		00720BC1231A787700C82984 /* SightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00720BC0231A787700C82984 /* SightTableViewCell.swift */; };
 		00BEC140231BAF9B00A8286A /* SightDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BEC13F231BAF9B00A8286A /* SightDetailsViewController.swift */; };
 		00BEC142231BB5AE00A8286A /* AddNewSightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BEC141231BB5AE00A8286A /* AddNewSightViewController.swift */; };
 		00BEC146231BBECB00A8286A /* AddSightDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BEC145231BBECB00A8286A /* AddSightDelegate.swift */; };
 		00BEC148231BCC2700A8286A /* EditSightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BEC147231BCC2700A8286A /* EditSightViewController.swift */; };
+		00F114E8231FE548006FC7C6 /* MulticaseDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F114E7231FE548006FC7C6 /* MulticaseDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,13 +38,14 @@
 		00720BB1231A697000C82984 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00720BB4231A697000C82984 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00720BB6231A697000C82984 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00720BBC231A6A0F00C82984 /* Sight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sight.swift; sourceTree = "<group>"; };
+		00720BBC231A6A0F00C82984 /* Sight_OLD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sight_OLD.swift; sourceTree = "<group>"; };
 		00720BBE231A6A7A00C82984 /* SightListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightListTableViewController.swift; sourceTree = "<group>"; };
 		00720BC0231A787700C82984 /* SightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightTableViewCell.swift; sourceTree = "<group>"; };
 		00BEC13F231BAF9B00A8286A /* SightDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightDetailsViewController.swift; sourceTree = "<group>"; };
 		00BEC141231BB5AE00A8286A /* AddNewSightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewSightViewController.swift; sourceTree = "<group>"; };
 		00BEC145231BBECB00A8286A /* AddSightDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSightDelegate.swift; sourceTree = "<group>"; };
 		00BEC147231BCC2700A8286A /* EditSightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSightViewController.swift; sourceTree = "<group>"; };
+		00F114E7231FE548006FC7C6 /* MulticaseDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticaseDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 			children = (
 				0037DA06231E2A6400B0AF39 /* DatabaseProtocol.swift */,
 				0037DA0A231E354500B0AF39 /* CoreDataController.swift */,
+				00F114E7231FE548006FC7C6 /* MulticaseDelegate.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -102,7 +105,7 @@
 				00720BB1231A697000C82984 /* Assets.xcassets */,
 				00720BB3231A697000C82984 /* LaunchScreen.storyboard */,
 				00720BB6231A697000C82984 /* Info.plist */,
-				00720BBC231A6A0F00C82984 /* Sight.swift */,
+				00720BBC231A6A0F00C82984 /* Sight_OLD.swift */,
 				00720BBE231A6A7A00C82984 /* SightListTableViewController.swift */,
 				00720BC0231A787700C82984 /* SightTableViewCell.swift */,
 				00BEC13F231BAF9B00A8286A /* SightDetailsViewController.swift */,
@@ -190,12 +193,13 @@
 				00BEC140231BAF9B00A8286A /* SightDetailsViewController.swift in Sources */,
 				00BEC148231BCC2700A8286A /* EditSightViewController.swift in Sources */,
 				0037DA04231E293100B0AF39 /* Place+CoreDataProperties.swift in Sources */,
+				00F114E8231FE548006FC7C6 /* MulticaseDelegate.swift in Sources */,
 				0037DA03231E293100B0AF39 /* Place+CoreDataClass.swift in Sources */,
 				0037D9F4231E25EE00B0AF39 /* SightsModel.xcdatamodeld in Sources */,
 				0037DA0B231E354500B0AF39 /* CoreDataController.swift in Sources */,
 				0037DA07231E2A6400B0AF39 /* DatabaseProtocol.swift in Sources */,
 				00720BAB231A696C00C82984 /* AppDelegate.swift in Sources */,
-				00720BBD231A6A0F00C82984 /* Sight.swift in Sources */,
+				00720BBD231A6A0F00C82984 /* Sight_OLD.swift in Sources */,
 				00720BC1231A787700C82984 /* SightTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

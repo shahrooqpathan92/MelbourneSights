@@ -8,10 +8,12 @@
 
 import UIKit
 
-class SightListTableViewController: UITableViewController , UISearchResultsUpdating, AddSightDelegate {
+class SightListTableViewController: UITableViewController , UISearchResultsUpdating, DatabaseListener {
+  
     
+    //var listenerType: ListenerType.Type
     
-    func addSight(newSight: Sight) -> Bool {
+    func addSight(newSight: Place) -> Bool {
         allSights.append(newSight)
         filteredSights.append(newSight)
         tableView.beginUpdates()
@@ -28,18 +30,23 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
     let CELL_SIGHT = "sightCell"
     let CELL_COUNT = "totalSightsCell"
     
-    var allSights:[Sight] = []
-    var filteredSights:[Sight] = []
+    var allSights:[Place] = []
+    var filteredSights:[Place] = []
     
     weak var sightDelegate: AddSightDelegate?
+    weak var databaseController: DatabaseProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createDefaultSights()
-        filteredSights = allSights
+        //createDefaultSights()
+        //filteredSights = allSights
+        // Get the database controller once from the App Delegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        databaseController = appDelegate.databaseController
         
-        print("HOW MANY TIMES DOES IT COME HERE")
+        
+       
         //Adding a Search Controller with proper settings
         let searchController = UISearchController(searchResultsController: nil);
         searchController.searchResultsUpdater = self
@@ -58,8 +65,8 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
 
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text?.lowercased(),searchText.count > 0 {
-            filteredSights = allSights.filter({(sight: Sight) -> Bool in
-                return sight.sightName.lowercased().contains(searchText)
+            filteredSights = allSights.filter({(sight: Place) -> Bool in
+                return (sight.name?.lowercased().contains(searchText))!
             })
         }
         else {
@@ -70,15 +77,15 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
     }
 
     
-    func createDefaultSights() {
-        allSights.append(Sight(sightName: "Flinders Street Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
-        allSights.append(Sight(sightName: "Parliament Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
-        allSights.append(Sight(sightName: "Melbourne Central Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
-        allSights.append(Sight(sightName: "Southbank Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
-        allSights.append(Sight(sightName: "Southern Cross Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
-        allSights.append(Sight(sightName: "Flagstaff Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
-        
-    }
+//    func createDefaultSights() {
+//        allSights.append(Sight(sightName: "Flinders Street Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
+//        allSights.append(Sight(sightName: "Parliament Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
+//        allSights.append(Sight(sightName: "Melbourne Central Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
+//        allSights.append(Sight(sightName: "Southbank Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
+//        allSights.append(Sight(sightName: "Southern Cross Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
+//        allSights.append(Sight(sightName: "Flagstaff Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
+//
+//    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -105,8 +112,8 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
 
             let place = filteredSights[indexPath.row]
 
-           placeCell.nameLabel.text = place.sightName
-           placeCell.descLabel.text = place.sightDesc
+           placeCell.nameLabel.text = place.name
+           placeCell.descLabel.text = place.desc
 
            return placeCell
     }
@@ -131,11 +138,23 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
         tableView.reloadData()
+        
     }
         
-        
- 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
+    }
+    
+    //var listenerType: ListenerType
+    
+    func onSightListChange(change: DatabaseChange, sights: [Place]) {
+        allSights = sights
+        updateSearchResults(for: navigationItem.searchController!)
+    }
     
     /*
     // Override to support conditional editing of the table view.
@@ -185,10 +204,10 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
             controller.sight = filteredSights[selectedIndexPath!.row]
         }
         
-        if segue.identifier == "AddSightSegue" {
-            let destination = segue.destination as! AddNewSightViewController
-            destination.sightDelegate = self
-        }
+//        if segue.identifier == "AddSightSegue" {
+//            let destination = segue.destination as! AddNewSightViewController
+//            //destination.sightDelegate = self
+//        }
         
     }
  

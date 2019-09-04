@@ -14,14 +14,14 @@ class EditSightViewController: UIViewController {
     @IBOutlet weak var desc: UITextField!
     @IBOutlet weak var icon: UITextField!
     
-    var sight: Sight?
+    var sight: Place?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        name.text = sight?.sightName
-        desc.text = sight?.sightDesc
-        icon.text = sight?.sightIcon
+        name.text = sight?.name
+        desc.text = sight?.desc
+        icon.text = sight?.icon
         
     }
     
@@ -32,9 +32,10 @@ class EditSightViewController: UIViewController {
     }
     
     @IBAction func saveSightChanges(_ sender: Any) {
-        sight?.sightName = name.text!
-        sight?.sightDesc = desc.text!
-        sight?.sightIcon = icon.text!
+        sight?.name = name.text!
+        sight?.desc = desc.text!
+        sight?.icon = icon.text!
+        navigationController?.popViewController(animated: true)
         
     }
     /*

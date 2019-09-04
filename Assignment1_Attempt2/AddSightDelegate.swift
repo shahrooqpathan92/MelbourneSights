@@ -9,5 +9,5 @@
 import Foundation
 
 protocol AddSightDelegate: AnyObject {
-    func addSight(newSight : Sight) -> Bool
+    func addSight(newSight : Place) -> Bool
 }

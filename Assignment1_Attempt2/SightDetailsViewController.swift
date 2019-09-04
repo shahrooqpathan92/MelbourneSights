@@ -10,7 +10,7 @@ import UIKit
 
 class SightDetailsViewController: UIViewController {
     
-    var sight: Sight?
+    var sight: Place?
     
     @IBOutlet weak var sightName: UILabel!
     @IBOutlet weak var sightDetails: UILabel!
@@ -19,8 +19,8 @@ class SightDetailsViewController: UIViewController {
         super.viewDidLoad()
         print("WTF")
         if sight != nil {
-            sightName.text = sight?.sightName
-            sightDetails.text = sight?.sightDesc
+            sightName.text = sight?.name
+            sightDetails.text = sight?.desc
         }
         
     }
