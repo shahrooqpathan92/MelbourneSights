@@ -26,7 +26,8 @@ protocol DatabaseListener: AnyObject {
 
 protocol DatabaseProtocol: AnyObject {
     //var defaultPlaces: Place{get}
-    func addSight(name : String, desc : String, icon : String) -> Place
+    func addSight(name : String, desc : String, icon : String, photo : String) -> Place
+    func updateSight() -> Bool
     func addListener(listener: DatabaseListener)
     func removeListener(listener: DatabaseListener)
 }

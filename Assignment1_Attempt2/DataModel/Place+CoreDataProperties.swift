@@ -20,5 +20,5 @@ extension Place {
     @NSManaged public var name: String?
     @NSManaged public var desc: String?
     @NSManaged public var icon: String?
-
+    @NSManaged public var photo: String?
 }

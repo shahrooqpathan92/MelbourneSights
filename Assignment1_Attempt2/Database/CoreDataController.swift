@@ -47,23 +47,30 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
     }
     
-    func addSight(name: String, desc: String, icon: String) -> Place {
+    func addSight(name: String, desc: String, icon: String, photo: String) -> Place {
         
         let sight = NSEntityDescription.insertNewObject(forEntityName:"Place" , into: persistantContainer.viewContext) as! Place
         sight.name = name;
         sight.desc = desc;
         sight.icon = icon;
+        sight.photo = photo;
         saveContext()
         return sight
         
         
     }
     
+    func updateSight() -> Bool {
+        saveContext()
+        return true
+    }
+    
+    
     func addListener(listener: DatabaseListener) {
         listeners.addDelegate(listener)
         
         //if listener.listenerType == ListenerType.all || listener.listenerType == ListenerType.sight {
-            listener.onSightListChange(change: .update, sights: fetchAllPlaces())
+        listener.onSightListChange(change: .update, sights: fetchAllPlaces())
         //}
     }
     
@@ -100,12 +107,13 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
                 
             }
         }
+        //saveContext()
     }
     
     func createDefaultEntries() {
-        let _ = addSight(name: "Flinders", desc: "Flinders Description", icon: "Flinders Icon")
-        let _ = addSight(name: "Parliament", desc: "Something", icon: "more something")
-        let _ = addSight(name: "WOW", desc: "WTF", icon: "HOW MUCH")
+        let _ = addSight(name: "Flinders", desc: "Flinders Description", icon: "Flinders Icon" ,photo: "luffy")
+        let _ = addSight(name: "Parliament", desc: "Something", icon: "more something", photo: "luffy")
+        let _ = addSight(name: "WOW", desc: "WTF", icon: "HOW MUCH", photo: "")
         
     }
     
