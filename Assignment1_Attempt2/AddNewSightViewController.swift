@@ -35,9 +35,11 @@ class AddNewSightViewController: UIViewController {
             let desc = descTextField.text!
             let icon = iconTextField.text!
             let photo = ""
+            let lat = 0
+            let long = 0
             //let sight = Sight(sightName: name, sightDesc: desc, sightIcon: icon)
             //let _ = sightDelegate?.addSight(newSight: sight)
-            let _ = databaseController!.addSight(name: name, desc: desc, icon: icon, photo: photo)
+            let _ = databaseController!.addSight(name: name, desc: desc, icon: icon, photo: photo, lat : Double(lat) , long : Double(long))
             navigationController?.popViewController(animated: true)
             return
             

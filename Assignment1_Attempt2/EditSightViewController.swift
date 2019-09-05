@@ -20,10 +20,6 @@ class EditSightViewController: UIViewController, UIImagePickerControllerDelegate
     
     weak var databaseController: DatabaseProtocol?
     
-    
-    
-    
-    
     @IBAction func imageClicked(_ sender: Any) {
         let changePhotoAlert = UIAlertController(title: "Change Photo", message: "You can change the photo of this location to the one you desire!", preferredStyle: UIAlertController.Style.actionSheet)
         
