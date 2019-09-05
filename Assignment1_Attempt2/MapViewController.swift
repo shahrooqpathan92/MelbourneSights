@@ -21,6 +21,8 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
     
     var selectedSight: Place? = nil
     
+    var focusedSight: Place? = nil
+    
     func onSightListChange(change: DatabaseChange, sights: [Place]) {
         allSights = sights
     }
@@ -30,18 +32,25 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
         super.viewDidLoad()
         
         mapView.delegate = self
-        // Do any additional setup after loading the view.
-        //  let zoomRegion = MKCoordinateRegion(center: self, latitudinalMeters: 14.2798, longitudinalMeters: 74.4439)
-        //mapView.setRegion(mapView.regionThatFits(zoomRegion), animated: true)
-        //mapView.setCenter(CLLocationCoordinate2DMake(14.2798, 74.4439), animated: true)
         
+        //Checking if the default sight is nil
+        if focusedSight == nil {
+            let zoomRegion = MKCoordinateRegion(center: .init(latitude: -37.8183, longitude: 144.9671), latitudinalMeters: 1000, longitudinalMeters: 1000)
+            mapView.setRegion(mapView.regionThatFits(zoomRegion), animated: true)
+            mapView.setCenter(CLLocationCoordinate2DMake(-37.8183, 144.9671), animated: true)
+            print("DEFAULT ZOOM")
+        }
+        else {
+            print("To implement map zoom")
+            focusOn(annotation: LocationAnnotation(newTitle: (focusedSight?.name)!, newSubtitle: (focusedSight?.icon)!, lat: (focusedSight?.lat)!, long: (focusedSight?.long)!))
+        }
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
         
         //var location = LocationAnnotation(newTitle: "Monash Uni - Caulfield", newSubtitle: "The Caulfield campus of the Uni", lat: -37.877623, long: 145.045374)
         
-            //locationList.append(location)
+        //locationList.append(location)
         //self.mapView.addAnnotation(location)
         //location = LocationAnnotation(newTitle: "Monash Uni - Clayton", newSubtitle: "The Main Campus", lat: -37.9105238, long: 145.1362182)
         //self.mapView.addAnnotation(location)
@@ -51,11 +60,17 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
         allSights = (databaseController?.fetchAllPlaces())!
         
         for sight in allSights {
-            print(sight.name!)
+            //print(sight.name!)
             let location = LocationAnnotation(newTitle: sight.name!, newSubtitle: sight.icon!, lat: sight.lat, long: sight.long)
             self.mapView.addAnnotation(location)
             //focusOn(annotation: location)
         }
+        
+        //focusOn(annotation: MKAnnotation)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //self.viewDidLoad()
     }
     
     
@@ -122,23 +137,25 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
         selectedSight = (databaseController?.getSight(name: selectedSightName))!
         
         
-        performSegue(withIdentifier: "sightViewSegue", sender: view)
+        performSegue(withIdentifier: "sightDetailsSegue", sender: view)
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "sightViewSegue" {
-            //let controller = segue.destination as! SightDetailsViewController
-           
+        if segue.identifier == "sightDetailsSegue" {
+            let controller = segue.destination as! SightDetailsViewController
+            
+            controller.sight = selectedSight
+        }
+        
+        if segue.identifier == "showAllSights" {
+            //            let controller = segue.destination as! SightListTableViewController
+            let controller = SightListTableViewController()
+            controller.mapController = self
+            
             //controller.sight = selectedSight
         }
-
-        //        if segue.identifier == "AddSightSegue" {
-        //            let destination = segue.destination as! AddNewSightViewController
-        //            //destination.sightDelegate = self
-        //        }
-
     }
 }

@@ -13,6 +13,17 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
     
     //var listenerType: ListenerType.Type
     
+    @IBAction func goBackToMap(_ sender: Any) {
+        //print("LOLOLOLOL")
+        //self.navigationController?.popToRootViewController(animated: true)
+        performSegue(withIdentifier: "showMapWithLocation", sender: view)
+    }
+    
+  
+    @IBAction func goToMap(_ sender: Any) {
+         self.navigationController?.popViewController(animated: true)
+    }
+    
     func addSight(newSight: Place) -> Bool {
         allSights.append(newSight)
         filteredSights.append(newSight)
@@ -35,6 +46,12 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
     
     weak var sightDelegate: AddSightDelegate?
     weak var databaseController: DatabaseProtocol?
+    //TESTING
+    weak var mapController: MapViewController?
+    
+    
+    weak var selectedSightFromList: Place? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,11 +147,35 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
             tableView.deselectRow(at: indexPath, animated: false)
             return
         }
+        //let mapView = MapViewController()
+        //mapView.focusedSight  = filteredSights[selectedIndexPath!.row]
+        let selectedIndexPath = tableView.indexPathsForSelectedRows?.first
+        //mapView.focusedSight = filteredSights[selectedIndexPath!.row]
+       
+        //mapController?.focusedSight = filteredSights[selectedIndexPath!.row]
+        
+        
+        selectedSightFromList = filteredSights[selectedIndexPath!.row]
+        
+        
+        
+        
+        //print(mapController?.focusedSight)
+        print("NEXTLINE")
+        //mapController?.focusOn(annotation: LocationAnnotation(newTitle: selectedSight.name!
+            //, newSubtitle: selectedSight.icon!, lat: selectedSight.lat, long: selectedSight.long) )
+        //print(filteredSights[selectedIndexPath!.row].name)
+        //navigationController?.popViewController(animated: true)
         
         //        if (sightDelegate!.addSight(newSight: filteredSights[indexPath.row])){
         //            navigationController?.popViewController(animated: true)
         //            return
         //        }
+        
+        
+        performSegue(withIdentifier: "showMapWithLocation", sender: view)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -208,6 +249,12 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
         //            let destination = segue.destination as! AddNewSightViewController
         //            //destination.sightDelegate = self
         //        }
+        if segue.identifier == "showMapWithLocation" {
+            let controller = segue.destination as! MapViewController
+           // let selectedIndexPath = tableView.indexPathsForSelectedRows?.first
+            controller.focusedSight = selectedSightFromList
+        }
+        
         
     }
     
