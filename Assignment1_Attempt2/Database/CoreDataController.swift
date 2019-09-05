@@ -10,6 +10,9 @@ import UIKit
 import CoreData
 
 class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsControllerDelegate {
+    
+ 
+    
    
     
     
@@ -68,7 +71,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     }
     
     //Getting a single sight name
-    func getSight(name: String) -> Place {
+    func getSight(name: String) -> Place? {
         
         var allSights:[Place] = fetchAllPlaces()
         
@@ -78,7 +81,14 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
                 return place
             }
         }
-        return allSights[1]
+        //will never return
+        return nil
+    }
+    
+    //Deleting an entiy
+    func deleteSight(sight: Place) {
+        persistantContainer.viewContext.delete(sight)
+        saveContext()
     }
     
     func addListener(listener: DatabaseListener) {

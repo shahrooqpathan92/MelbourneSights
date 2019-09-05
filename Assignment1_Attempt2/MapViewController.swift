@@ -30,7 +30,8 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //To hide the navigation button 
+        navigationItem.hidesBackButton = true
         mapView.delegate = self
         
         //Checking if the default sight is nil
@@ -42,26 +43,18 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
         }
         else {
             print("To implement map zoom")
-            focusOn(annotation: LocationAnnotation(newTitle: (focusedSight?.name)!, newSubtitle: (focusedSight?.icon)!, lat: (focusedSight?.lat)!, long: (focusedSight?.long)!))
+            focusOn(annotation: LocationAnnotation(newTitle: (focusedSight?.name)!, newSubtitle: (focusedSight?.icon)!, lat: (focusedSight?.lat)!, long: (focusedSight?.long)!, icon: (focusedSight?.icon)!, image: (focusedSight?.photo)!))
         }
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         databaseController = appDelegate.databaseController
-        
-        //var location = LocationAnnotation(newTitle: "Monash Uni - Caulfield", newSubtitle: "The Caulfield campus of the Uni", lat: -37.877623, long: 145.045374)
-        
-        //locationList.append(location)
-        //self.mapView.addAnnotation(location)
-        //location = LocationAnnotation(newTitle: "Monash Uni - Clayton", newSubtitle: "The Main Campus", lat: -37.9105238, long: 145.1362182)
-        //self.mapView.addAnnotation(location)
-        
-        //focusOn(annotation: location)
         
         allSights = (databaseController?.fetchAllPlaces())!
         
         for sight in allSights {
             //print(sight.name!)
-            let location = LocationAnnotation(newTitle: sight.name!, newSubtitle: sight.icon!, lat: sight.lat, long: sight.long)
+            let location = LocationAnnotation(newTitle: sight.name!, newSubtitle: sight.icon!, lat: sight.lat, long: sight.long, icon: sight.icon!, image: sight.photo!)
             self.mapView.addAnnotation(location)
             //focusOn(annotation: location)
         }
@@ -70,7 +63,7 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //self.viewDidLoad()
+        
     }
     
     
@@ -123,9 +116,57 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
             view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            //view.image = UIImage(named: "luffy")
+            view.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+            view.image = nil
+            if annotation.icon == "green" {
+                view.markerTintColor = UIColor.green
+            }
+            if annotation.icon == "purple" {
+                view.glyphImage = UIImage(named: "purple")
+            }
+            
+            
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.height, height: view.frame.height))
+            
+            //imageView.image =  UIImage(named: annotation.image!)
+           
+            if let _ = UIImage(named: annotation.image ?? "none") {
+                imageView.image = UIImage(named: annotation.image!)
+            } else {
+                imageView.image = loadImageData(fileName: annotation.image ?? "none")
+            }
+            
+            
+            
+            imageView.contentMode = .scaleAspectFit
+            
+            view.leftCalloutAccessoryView = imageView
+            
         }
         return view
+        
+        
     }
+    
+    func loadImageData(fileName: String) -> UIImage? {
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory,
+                                                       .userDomainMask, true)[0] as String
+        let url = NSURL(fileURLWithPath: path)
+        var image: UIImage?
+        if let pathComponent = url.appendingPathComponent(fileName) {
+            let filePath = pathComponent.path
+            let fileManager = FileManager.default
+            let fileData = fileManager.contents(atPath: filePath)
+            image = UIImage(data: fileData!)
+        }
+        
+        return image
+    }
+    
+    
+    
+    
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {

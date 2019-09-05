@@ -31,5 +31,6 @@ protocol DatabaseProtocol: AnyObject {
     func fetchAllPlaces() -> [Place]
     func addListener(listener: DatabaseListener)
     func removeListener(listener: DatabaseListener)
-    func getSight(name: String) -> Place
+    func getSight(name: String) -> Place?
+    func deleteSight(sight: Place)
 }
