@@ -9,7 +9,24 @@
     import UIKit
     import MapKit
     
-    class AddNewSightViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate {
+    class AddNewSightViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate,UIPickerViewDelegate, UIPickerViewDataSource {
+        
+        
+        
+        func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+            return pickerData.count
+        }
+        
+        func numberOfComponents(in pickerView: UIPickerView) -> Int {
+            return 1
+        }
+
+    
+        // The data to return fopr the row and component (column) that's being passed in
+        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+            return pickerData[row]
+        }
+        
         
         //weak var sightDelegate: AddSightDelegate?
         weak var databaseController: DatabaseProtocol?
@@ -17,10 +34,13 @@
         
         @IBOutlet weak var mapView: MKMapView!
         @IBOutlet weak var photo: UIImageView!
-        @IBOutlet weak var iconTextField: UITextField!
+        //@IBOutlet weak var iconTextField: UITextField!
         @IBOutlet weak var descTextField: UITextField!
         @IBOutlet weak var nameTextField: UITextField!
         
+        //For icon picker
+        @IBOutlet weak var iconPicker: UIPickerView!
+        var pickerData: [String] = [String]()
         
         let annotation = MKPointAnnotation()
         
@@ -32,16 +52,17 @@
         override func viewDidLoad() {
             super.viewDidLoad()
             
+            
+            pickerData = ["red","green","blue"]
+            
             //Get the database controller once from the App Delegate
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             databaseController = appDelegate.databaseController
             mapView.delegate = self
             
-            //            let longPressRecogniser = UILongPressGestureRecognizer(target: self, action:#selector(AddNewSightViewController.handleLongPress(_:)))
-            //            longPressRecogniser.minimumPressDuration = 1.0
-            //            mapView.addGestureRecognizer(longPressRecogniser)
-            
-            //Setting te map data
+            //Setting the picker delegate
+            iconPicker.delegate = self
+            iconPicker.dataSource = self
             
             // Do any additional setup after loading the view, typically from a nib.
             //Reference: https://stackoverflow.com/questions/33188663/how-to-drag-an-annotation-with-mkmapview-being-dragged-ios
@@ -169,7 +190,7 @@
         
         @IBAction func createSight(_ sender: Any) {
             
-            if nameTextField.text != "" && descTextField.text != "" && iconTextField.text != "" {
+            if nameTextField.text != "" && descTextField.text != "" /* && iconTextField.text != "" */ {
                 
                 let image = photo.image
                 var data = Data()
@@ -192,7 +213,9 @@
                 
                 let name = nameTextField.text!
                 let desc = descTextField.text!
-                let icon = iconTextField.text!
+                //let icon = iconTextField.text!
+               
+                let icon = pickerData[iconPicker.selectedRow(inComponent: 0)]
                 let picture = "\(date)"
                 let lat = tempLat
                 let long = tempLong

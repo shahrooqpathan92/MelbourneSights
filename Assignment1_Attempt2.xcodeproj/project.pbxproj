@@ -35,7 +35,6 @@
 		0037DA02231E293100B0AF39 /* Place+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Place+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0037DA06231E2A6400B0AF39 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		0037DA0A231E354500B0AF39 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; wrapsLines = 0; };
-		00565BE82321E1B900201090 /* FedSquareMelbourne.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = FedSquareMelbourne.gpx; path = ../../../../../../../../../Users/spat0023/Downloads/FedSquareMelbourne.gpx; sourceTree = "<group>"; };
 		00565BE92321EED400201090 /* Assignment1_Attempt2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Assignment1_Attempt2.entitlements; sourceTree = "<group>"; };
 		00720BA7231A696C00C82984 /* Assignment1_Attempt2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment1_Attempt2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00720BAA231A696C00C82984 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +50,7 @@
 		00BEC141231BB5AE00A8286A /* AddNewSightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewSightViewController.swift; sourceTree = "<group>"; };
 		00BEC145231BBECB00A8286A /* AddSightDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSightDelegate.swift; sourceTree = "<group>"; };
 		00BEC147231BCC2700A8286A /* EditSightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSightViewController.swift; sourceTree = "<group>"; };
+		00CCF0D6232262580043DB99 /* FedSquare.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = FedSquare.gpx; path = ../../FedSquare.gpx; sourceTree = "<group>"; };
 		00F114E7231FE548006FC7C6 /* MulticaseDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticaseDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,7 +88,7 @@
 		00720B9E231A696C00C82984 = {
 			isa = PBXGroup;
 			children = (
-				00565BE82321E1B900201090 /* FedSquareMelbourne.gpx */,
+				00CCF0D6232262580043DB99 /* FedSquare.gpx */,
 				00720BA9231A696C00C82984 /* Assignment1_Attempt2 */,
 				00720BA8231A696C00C82984 /* Products */,
 			);

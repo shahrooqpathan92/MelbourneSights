@@ -8,6 +8,8 @@
 
 import UIKit
 import MapKit
+import UserNotifications
+
 
 class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, CLLocationManagerDelegate {
     
@@ -17,7 +19,7 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
     
     var allSights:[Place] = []
     
-    var selectedSightName: String = ""
+    var selectedSightName: String = ""  
     
     var selectedSight: Place? = nil
     
@@ -28,9 +30,45 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
     var currentLocation: CLLocationCoordinate2D?
     var geoLocation = CLCircularRegion()
     
+    //For Notification
+    let notificationIdentifier = "myNotification"
+    
+    var notificationHeader: String?
+    
+    
     func onSightListChange(change: DatabaseChange, sights: [Place]) {
         allSights = sights
     }
+    
+    //Function Notification
+    func scheduleNotification(inSeconds: TimeInterval, completion: @escaping (Bool) -> ()) {
+        
+        // Create Notification content
+        let notificationContent = UNMutableNotificationContent()
+        
+        notificationContent.title = "You have entered \(notificationHeader ?? "a Point of Interest")"
+        
+        notificationContent.subtitle = "Maybe you should check it out right now!"
+        notificationContent.body = "Enjoy!"
+        
+        // Create Notification trigger
+        // Note that 60 seconds is the smallest repeating interval.
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: false)
+        
+        // Create a notification request with the above components
+        let request = UNNotificationRequest(identifier: notificationIdentifier, content: notificationContent, trigger: trigger)
+        
+        //Adding Notifcation to Notification Center
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
+            if error != nil {
+                print("\(error)")
+                completion(false)
+            } else {
+                completion(true)
+            }
+        })
+    }
+    
     
     
     override func viewDidLoad() {
@@ -87,14 +125,8 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
             geoLocation.notifyOnExit = true
             locationManager.startMonitoring(for: geoLocation)
             //focusOn(annotation: location)
+            
         }
-       
-        
-        
-        
-        //
-        
-        //focusOn(annotation: MKAnnotation)
         
     }
     
@@ -110,7 +142,7 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
             locationManager.startMonitoring(for: region)
         }
     }
-
+    
     
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region:
@@ -128,6 +160,17 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
         alert.addAction(UIAlertAction(title: "Ok", style:
             UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+        
+        //Scheduling a Notification
+        notificationHeader = region.identifier
+        self.scheduleNotification(inSeconds: 5, completion: { success in
+            if success {
+                print("Successfully scheduled notification")
+            } else {
+                print("Error scheduling notification")
+            }
+        })
+        
     }
     
     
@@ -166,6 +209,8 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        mapView.removeAnnotations(mapView.annotations)
+        viewDidLoad()
         databaseController?.addListener(listener: self)
         locationManager.startUpdatingLocation()
     }
@@ -182,34 +227,44 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
     //reference : https://www.raywenderlich.com/548-mapkit-tutorial-getting-started
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? LocationAnnotation else { return nil }
-        // 3
+        
         let identifier = "marker"
         var view: MKMarkerAnnotationView
-        // 4
-        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-            as? MKMarkerAnnotationView {
-            dequeuedView.annotation = annotation
-            view = dequeuedView
-        } else {
+        
+//        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+//            as? MKMarkerAnnotationView {
+//            dequeuedView.annotation = annotation
+//            view = dequeuedView
+//        } else {
             // 5
             view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
             view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            //view.image = UIImage(named: "luffy")
             view.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
             view.image = nil
-            if annotation.icon == "green" {
+            
+            
+            switch annotation.icon {
+            case "green":
                 view.markerTintColor = UIColor.green
+                view.glyphImage = UIImage(named: "green_glyph")
+            case "red":
+                view.markerTintColor = UIColor.red
+                view.glyphImage = UIImage(named: "red_glyph")
+            case "blue":
+                view.markerTintColor = UIColor.blue
+                view.glyphImage = UIImage(named: "blue_glyph")
+            default:
+                print("Error no Color Found")
+                
             }
-            if annotation.icon == "purple" {
-                view.glyphImage = UIImage(named: "purple")
-            }
+            
+            
+          
             
             
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.height, height: view.frame.height))
-            
-            //imageView.image =  UIImage(named: annotation.image!)
             
             if let _ = UIImage(named: annotation.image ?? "none") {
                 imageView.image = UIImage(named: annotation.image!)
@@ -217,13 +272,11 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
                 imageView.image = loadImageData(fileName: annotation.image ?? "none")
             }
             
-            
-            
             imageView.contentMode = .scaleAspectFit
             
             view.leftCalloutAccessoryView = imageView
             
-        }
+        //}
         return view
         
         
@@ -250,10 +303,7 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
-        //let location = view.annotation as! Artwork
-        //let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
-        //location.mapItem().openInMaps(launchOptions: launchOptions)
-        print("information clicked")
+       
         selectedSightName = ((view.annotation?.title)!)!
         selectedSight = (databaseController?.getSight(name: selectedSightName))!
         
@@ -277,6 +327,7 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
             controller.mapController = self
             
             //controller.sight = selectedSight
+            
         }
     }
     

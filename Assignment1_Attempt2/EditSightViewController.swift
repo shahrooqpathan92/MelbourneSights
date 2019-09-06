@@ -9,12 +9,30 @@
 import UIKit
 import MapKit
 
-class EditSightViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate {
+class EditSightViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    
+    // The data to return fopr the row and component (column) that's being passed in
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
+    }
+    
+    
     
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var desc: UITextField!
-    @IBOutlet weak var icon: UITextField!
+    //@IBOutlet weak var icon: UITextField!
     
+    @IBOutlet weak var iconPicker: UIPickerView!
     @IBOutlet weak var photo: UIImageView!
     
     //@IBOutlet weak var mapView: MKMapView!
@@ -23,6 +41,8 @@ class EditSightViewController: UIViewController, UIImagePickerControllerDelegate
     var sight: Place?
     
     weak var databaseController: DatabaseProtocol?
+    
+    var pickerData: [String] = [String]()
     
     let annotation = MKPointAnnotation()
     
@@ -79,10 +99,30 @@ class EditSightViewController: UIViewController, UIImagePickerControllerDelegate
         //Get the database controller once from the App Delegate
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
+        
+        //Setting the picker delegate
+        iconPicker.delegate = self
+        iconPicker.dataSource = self
+        pickerData = ["red","green","blue"]
+        //Setting Map View Delegate
+        
         mapView.delegate = self
         name.text = sight?.name
         desc.text = sight?.desc
-        icon.text = sight?.icon
+        //icon.text = sight?.icon
+        
+        switch sight?.icon {
+        case "red":
+            iconPicker.selectRow(0, inComponent: 0, animated: false)
+        case "green":
+            iconPicker.selectRow(1, inComponent: 0, animated: false)
+        case "blue":
+            iconPicker.selectRow(2, inComponent: 0, animated: false)
+        default:
+            print("no color exists")
+        }
+        
+        
         
         if let _ = UIImage(named: sight?.photo ?? "none") {
             photo.image = UIImage(named: sight?.photo ?? "none")
@@ -185,7 +225,7 @@ class EditSightViewController: UIViewController, UIImagePickerControllerDelegate
         
         sight?.name = name.text!
         sight?.desc = desc.text!
-        sight?.icon = icon.text!
+        sight?.icon = pickerData[iconPicker.selectedRow(inComponent: 0)]
         sight?.photo = "\(date)"
         
         if tempLat != nil {

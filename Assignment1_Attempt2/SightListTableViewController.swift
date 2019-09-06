@@ -151,9 +151,9 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
             
             
             
-            imageView.contentMode = .scaleAspectFit
+            //imageView.contentMode = .scaleAspectFit
             //placeCell.sightImage.image = imageView
-            placeCell.sightImage.image = UIImage(named: place.icon!)
+            placeCell.sightImage.image = UIImage(named: "\(place.icon!)_glyph_color")
             print("SORT PLACES")
             return placeCell
         }
