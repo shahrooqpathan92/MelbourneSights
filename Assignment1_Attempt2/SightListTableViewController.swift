@@ -35,11 +35,28 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
         return true
     }
     
+    //Function to sort based on segment
+    @IBAction func sort(_ sender: UISegmentedControl) {
+        //Sorting by ascending
+        if sender.selectedSegmentIndex == 0 {
+            print("Segment 0")
+            //filteredSights = filteredSights.sorted(by: { $0.name?.lowercased() < $1.name?.lowercased() })
+            filteredSights = filteredSights.sorted{ $0.name!.lowercased() < $1.name!.lowercased() }
+        }
+        //Sorting by descending
+        if sender.selectedSegmentIndex == 1 {
+            print("Segment 1")
+            filteredSights = filteredSights.sorted{ $0.name!.lowercased() > $1.name!.lowercased() }
+        }
+        tableView.reloadData()
+    }
     
-    let SECTION_PLACES = 0;
-    let SECTION_COUNT = 1;
+    let SECTION_PLACES = 1;
+    let SECTION_COUNT = 2;
+    let SECTION_SORT = 0;
     let CELL_SIGHT = "sightCell"
     let CELL_COUNT = "totalSightsCell"
+    let CELL_SORT = "sortCell"
     
     var allSights:[Place] = []
     var filteredSights:[Place] = []
@@ -93,20 +110,9 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
         tableView.reloadData();
     }
     
-    
-    //    func createDefaultSights() {
-    //        allSights.append(Sight(sightName: "Flinders Street Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
-    //        allSights.append(Sight(sightName: "Parliament Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
-    //        allSights.append(Sight(sightName: "Melbourne Central Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
-    //        allSights.append(Sight(sightName: "Southbank Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
-    //        allSights.append(Sight(sightName: "Southern Cross Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
-    //        allSights.append(Sight(sightName: "Flagstaff Station", sightDesc: "Probably the most important station of Melbourne", sightIcon: "To be Implemented"))
-    //
-    //    }
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -130,9 +136,32 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
             let place = filteredSights[indexPath.row]
             
             placeCell.nameLabel.text = place.name
-            placeCell.descLabel.text = place.desc
+            placeCell.descLabel.text = place.shortdesc
             
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: tableView.frame.height, height: tableView.frame.height))
+            imageView.image = UIImage(named: place.icon!)
+            
+            //imageView.image =  UIImage(named: annotation.image!)
+            
+            //if let _ = UIImage(named: annotation.image ?? "none") {
+              //  imageView.image = UIImage(named: annotation.image!)
+            //} else {
+                //imageView.image = loadImageData(fileName: annotation.image ?? "none")
+            //}
+            
+            
+            
+            imageView.contentMode = .scaleAspectFit
+            //placeCell.sightImage.image = imageView
+            placeCell.sightImage.image = UIImage(named: place.icon!)
+            print("SORT PLACES")
             return placeCell
+        }
+        
+        if indexPath.section == SECTION_SORT {
+            let sortcell = tableView.dequeueReusableCell(withIdentifier: CELL_SORT, for: indexPath)
+            print("SORT CELL")
+            return sortcell
         }
         let countcell = tableView.dequeueReusableCell(withIdentifier: CELL_COUNT, for: indexPath)
         countcell.textLabel?.text = "\(allSights.count) sights in the database"
@@ -201,6 +230,7 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
         return true
     }
     
+    //To Delelte the rows from tablieview and save to coreData
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete && indexPath.section == SECTION_PLACES) {
             

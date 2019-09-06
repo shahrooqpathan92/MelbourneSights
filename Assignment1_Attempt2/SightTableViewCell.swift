@@ -14,6 +14,8 @@ class SightTableViewCell: UITableViewCell {
     
     @IBOutlet weak var descLabel: UILabel!
     
+    @IBOutlet weak var sightImage: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

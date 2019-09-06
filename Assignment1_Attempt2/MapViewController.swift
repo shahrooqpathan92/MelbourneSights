@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
+class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -23,6 +23,11 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
     
     var focusedSight: Place? = nil
     
+    
+    var locationManager: CLLocationManager = CLLocationManager()
+    var currentLocation: CLLocationCoordinate2D?
+    var geoLocation = CLCircularRegion()
+    
     func onSightListChange(change: DatabaseChange, sights: [Place]) {
         allSights = sights
     }
@@ -34,6 +39,16 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
         navigationItem.hidesBackButton = true
         mapView.delegate = self
         
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.distanceFilter = 10
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        
+        
+        
+        
+        //Setting the user location
+        mapView.showsUserLocation = true
         //Checking if the default sight is nil
         if focusedSight == nil {
             let zoomRegion = MKCoordinateRegion(center: .init(latitude: -37.8183, longitude: 144.9671), latitudinalMeters: 1000, longitudinalMeters: 1000)
@@ -54,13 +69,37 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
         
         for sight in allSights {
             //print(sight.name!)
-            let location = LocationAnnotation(newTitle: sight.name!, newSubtitle: sight.icon!, lat: sight.lat, long: sight.long, icon: sight.icon!, image: sight.photo!)
+            let location = LocationAnnotation(newTitle: sight.name!, newSubtitle: sight.shortdesc!, lat: sight.lat, long: sight.long, icon: sight.icon!, image: sight.photo!)
             self.mapView.addAnnotation(location)
+            geoLocation = CLCircularRegion(center: location.coordinate, radius: 50000,
+                                           identifier: location.title!)
+            
+            
+            
             //focusOn(annotation: location)
         }
+        geoLocation.notifyOnExit = true
+        locationManager.startMonitoring(for: geoLocation)
+        
+        
+        //
         
         //focusOn(annotation: MKAnnotation)
+        
     }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region:
+        CLRegion) {
+        let alert = UIAlertController(title: "Movement Detected!", message: "You have left Monash Caulfield", preferredStyle:
+            UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style:
+            UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         
@@ -78,6 +117,14 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
      */
     
     
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        locationManager.stopUpdatingLocation()
+    }
+    
+    
+    
     func focusOn(annotation: MKAnnotation) {
         mapView.selectAnnotation(annotation, animated: true)
         
@@ -88,6 +135,7 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
+        locationManager.startUpdatingLocation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -130,7 +178,7 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.height, height: view.frame.height))
             
             //imageView.image =  UIImage(named: annotation.image!)
-           
+            
             if let _ = UIImage(named: annotation.image ?? "none") {
                 imageView.image = UIImage(named: annotation.image!)
             } else {
@@ -198,5 +246,11 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate {
             
             //controller.sight = selectedSight
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations.last!
+        currentLocation = location.coordinate
+        
     }
 }

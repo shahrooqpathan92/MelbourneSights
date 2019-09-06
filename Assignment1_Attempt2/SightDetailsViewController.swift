@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MapKit
 
-class SightDetailsViewController: UIViewController {
+class SightDetailsViewController: UIViewController, MKMapViewDelegate {
     
     var sight: Place?
     
@@ -16,11 +17,13 @@ class SightDetailsViewController: UIViewController {
     @IBOutlet weak var sightDetails: UILabel!
     
     @IBOutlet weak var sightPhoto: UIImageView!
+    @IBOutlet weak var mapView: MKMapView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("WTF")
+        print("sight details = 1")
+        mapView.removeAnnotations(mapView.annotations)
         if sight != nil {
             sightName.text = sight?.name
             sightDetails.text = sight?.desc
@@ -31,6 +34,15 @@ class SightDetailsViewController: UIViewController {
             } else {
                 sightPhoto.image = loadImageData(fileName: sight?.photo ?? "none")
             }
+            
+            //setting the map location for the sight
+            let zoomRegion = MKCoordinateRegion(center: .init(latitude: (sight?.lat)!, longitude: (sight?.long)!), latitudinalMeters: 1000, longitudinalMeters: 1000)
+            mapView.setRegion(mapView.regionThatFits(zoomRegion), animated: true)
+            mapView.setCenter(CLLocationCoordinate2DMake((sight?.lat)!, (sight?.long)!), animated: true)
+            
+            let location = LocationAnnotation(newTitle: sight!.name!, newSubtitle: sight!.shortdesc!, lat: sight!.lat, long: sight!.long, icon: sight!.icon!, image: sight!.photo!)
+            self.mapView.addAnnotation(location)
+            
         }
         
     }

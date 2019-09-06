@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MapKit
 
-class EditSightViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditSightViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate {
     
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var desc: UITextField!
@@ -16,9 +17,17 @@ class EditSightViewController: UIViewController, UIImagePickerControllerDelegate
     
     @IBOutlet weak var photo: UIImageView!
     
+    //@IBOutlet weak var mapView: MKMapView!
+    
+    @IBOutlet weak var mapView: MKMapView!
     var sight: Place?
     
     weak var databaseController: DatabaseProtocol?
+    
+    let annotation = MKPointAnnotation()
+    
+    var tempLat: Double?
+    var tempLong: Double?
     
     @IBAction func imageClicked(_ sender: Any) {
         let changePhotoAlert = UIAlertController(title: "Change Photo", message: "You can change the photo of this location to the one you desire!", preferredStyle: UIAlertController.Style.actionSheet)
@@ -70,7 +79,7 @@ class EditSightViewController: UIViewController, UIImagePickerControllerDelegate
         //Get the database controller once from the App Delegate
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
-        
+        mapView.delegate = self
         name.text = sight?.name
         desc.text = sight?.desc
         icon.text = sight?.icon
@@ -82,13 +91,56 @@ class EditSightViewController: UIViewController, UIImagePickerControllerDelegate
         }
         
         
-        
-        
+//        //Reference: https://stackoverflow.com/questions/33188663/how-to-drag-an-annotation-with-mkmapview-being-dragged-ios
+        let coordinate = CLLocationCoordinate2DMake((sight?.lat)!, (sight?.long)!)
+        let span = MKCoordinateSpan.init(latitudeDelta: 0.003, longitudeDelta: 0.003)
+        let region = MKCoordinateRegion.init(center: coordinate, span: span)
+        mapView.setRegion(region, animated:true)
+
+
+        annotation.coordinate = coordinate
+        annotation.title = sight?.name
+        annotation.subtitle = sight?.shortdesc
+        self.mapView.addAnnotation(annotation)
+
         
         
         
         
     }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        // Remove all annotations
+        self.mapView.removeAnnotations(mapView.annotations)
+        
+        // Add new annotation
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = mapView.centerCoordinate
+        annotation.title = "title"
+        annotation.subtitle = "subtitle"
+        self.mapView.addAnnotation(annotation)
+    }
+    
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        let reuseId = "pin"
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView?.isDraggable = true
+        }
+        else {
+            pinView?.annotation = annotation
+        }
+        tempLat = (pinView?.annotation?.coordinate.latitude)!
+        tempLong = (pinView?.annotation?.coordinate.longitude)!
+        return pinView
+    }
+    
     
     func loadImageData(fileName: String) -> UIImage? {
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory,
@@ -135,6 +187,15 @@ class EditSightViewController: UIViewController, UIImagePickerControllerDelegate
         sight?.desc = desc.text!
         sight?.icon = icon.text!
         sight?.photo = "\(date)"
+        
+        if tempLat != nil {
+            sight?.lat = tempLat!
+        }
+        if tempLong != nil {
+            sight?.long = tempLong!
+        }
+        
+        
         
         let _ = databaseController!.updateSight()
         

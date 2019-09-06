@@ -23,5 +23,6 @@ extension Place {
     @NSManaged public var photo: String?
     @NSManaged public var lat: Double
     @NSManaged public var long: Double
+    @NSManaged public var shortdesc: String?
     
 }

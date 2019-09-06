@@ -36,7 +36,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         super.init()
         // If there are no heroes in the database assume that the app is running // for the first time. Create the default team and initial superheroes.
         if fetchAllPlaces().count == 0 {
-        createDefaultEntries()
+            createDefaultEntries()
             
         }
     }
@@ -50,7 +50,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
     }
     
-    func addSight(name: String, desc: String, icon: String, photo: String, lat: Double, long: Double) -> Place {
+    func addSight(name: String, desc: String, icon: String, photo: String, lat: Double, long: Double, shortdesc: String) -> Place {
         
         let sight = NSEntityDescription.insertNewObject(forEntityName:"Place" , into: persistantContainer.viewContext) as! Place
         sight.name = name;
@@ -59,6 +59,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         sight.photo = photo;
         sight.lat = lat;
         sight.long = long;
+        sight.shortdesc = shortdesc;
         saveContext()
         return sight
         
@@ -137,15 +138,15 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     
     func createDefaultEntries() {
         //Immigration Museum
-        let _ = addSight(name: "Immigration Museum", desc: "Explore Melbourne's history through stories of people from across the world who have migrated to Victoria at the Immigration Museum.\nFrom the reasons for making the journey, to the moment of arrival in a new country, and the impact on indigenous communities - these stories are sometimes sad, sometimes funny, but always engaging. The result is a thought-provoking and moving experience.\nTake a fresh look at what it means to belong and not belong in Australia. Explore who Australians are and who others think Australians are.\nOpen daily, 10:00am to 5:00pm. Closed Good Friday and Christmas Day.", icon: "Flinders Icon" , photo: "immigration_museum", lat: -37.818948 , long: 144.960497)
+        let _ = addSight(name: "Immigration Museum", desc: "Explore Melbourne's history through stories of people from across the world who have migrated to Victoria at the Immigration Museum.\nFrom the reasons for making the journey, to the moment of arrival in a new country, and the impact on indigenous communities - these stories are sometimes sad, sometimes funny, but always engaging. The result is a thought-provoking and moving experience.\nTake a fresh look at what it means to belong and not belong in Australia. Explore who Australians are and who others think Australians are.\nOpen daily, 10:00am to 5:00pm. Closed Good Friday and Christmas Day.", icon: "green" , photo: "immigration_museum", lat: -37.818948 , long: 144.960497, shortdesc: "Museum of Immigration")
         //Manchester Unity Building
-         let _ = addSight(name: "Manchester Unity Building", desc: "The Manchester Unity Building is one of Melbourne's most iconic Art Deco landmarks. It was built in 1932 for the Manchester Unity Independent Order of Odd Fellows (IOOF), a friendly society providing sickness and funeral insurance. Melbourne architect Marcus Barlow took inspiration from the 1927 Chicago Tribune Building. His design incorporated a striking New Gothic style façade of faience tiles with ground-floor arcade and mezzanine shops, café and rooftop garden. Step into the arcade for a glimpse of the marble interior, beautiful friezes and restored lift – or book a tour for a peek upstairs.", icon: "Flinders Icon" , photo: "manchester_building", lat: -37.815132 , long: 144.966374)
+        let _ = addSight(name: "Manchester Unity Building", desc: "The Manchester Unity Building is one of Melbourne's most iconic Art Deco landmarks. It was built in 1932 for the Manchester Unity Independent Order of Odd Fellows (IOOF), a friendly society providing sickness and funeral insurance. Melbourne architect Marcus Barlow took inspiration from the 1927 Chicago Tribune Building. His design incorporated a striking New Gothic style façade of faience tiles with ground-floor arcade and mezzanine shops, café and rooftop garden. Step into the arcade for a glimpse of the marble interior, beautiful friezes and restored lift – or book a tour for a peek upstairs.", icon: "green" , photo: "manchester_building", lat: -37.815132 , long: 144.966374, shortdesc: "Melbourne's most iconic Art Deco")
         //Public Record Office
-        let _ = addSight(name: "Public Record Office Victoria", desc: "Public Record Office Victoria holds a vast array of records created by Victorian Government departments and authorities including the State's courts, local councils, schools, public hospitals and other public offices.", icon: "Flinders Icon" , photo: "public_record", lat: -37.796358 , long: 144.942314)
+        let _ = addSight(name: "Public Record Office Victoria", desc: "Public Record Office Victoria holds a vast array of records created by Victorian Government departments and authorities including the State's courts, local councils, schools, public hospitals and other public offices.", icon: "purple" , photo: "public_record", lat: -37.796358 , long: 144.942314, shortdesc: "Holds a vast array of records")
         //Royal Botanic Gardens
-        let _ = addSight(name: "Royal Botanic Gardens", desc: "Attracting over 1,900,000 visitors annually, Melbourne Gardens is a treasured part of cultural life and a valuable asset to the heritage rich city. With its stunning vistas, tranquil lakes and diverse plant collections, the Gardens are a place of continual discovery and delight.", icon: "Flinders Icon" , photo: "botanic_garden", lat: -37.831502 , long: 144.979310)
+        let _ = addSight(name: "Royal Botanic Gardens", desc: "Attracting over 1,900,000 visitors annually, Melbourne Gardens is a treasured part of cultural life and a valuable asset to the heritage rich city. With its stunning vistas, tranquil lakes and diverse plant collections, the Gardens are a place of continual discovery and delight.", icon: "purple" , photo: "botanic_garden", lat: -37.831502 , long: 144.979310, shortdesc: "A place of continual discovery and delight")
         //Federation Square
-        let _ = addSight(name: "Federation Square", desc: "It is increasingly hard to imagine Melbourne without Federation Square. As a home to major cultural attractions, world-class events, tourism experiences and an exceptional array of restaurants, bars and specialty stores, this modern piazza has become the city's meeting place.", icon: "Flinders Icon" , photo: "fed_square", lat: -37.817895 , long: 144.969094)
+        let _ = addSight(name: "Federation Square", desc: "It is increasingly hard to imagine Melbourne without Federation Square. As a home to major cultural attractions, world-class events, tourism experiences and an exceptional array of restaurants, bars and specialty stores, this modern piazza has become the city's meeting place.", icon: "purple" , photo: "fed_square", lat: -37.817895 , long: 144.969094, shortdesc: "Like a City Square!")
 
         //let _ = addSight(name: "Parliament", desc: "Something", icon: "more something", photo: "luffy")
         //let _ = addSight(name: "WOW", desc: "WTF", icon: "HOW MUCH", photo: "")

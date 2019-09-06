@@ -196,13 +196,13 @@
                 let picture = "\(date)"
                 let lat = tempLat
                 let long = tempLong
-                
+                let shortdesc = "User added location"
                 //let lat = annotation.coordinate.latitude
                 //let long = annotation.coordinate.longitude
                 //let long = mapView.annotations.
                 //let sight = Sight(sightName: name, sightDesc: desc, sightIcon: icon)
                 //let _ = sightDelegate?.addSight(newSight: sight)
-                let _ = databaseController!.addSight(name: name, desc: desc, icon: icon, photo: picture, lat : Double(lat) , long : Double(long))
+                let _ = databaseController!.addSight(name: name, desc: desc, icon: icon, photo: picture, lat : Double(lat) , long : Double(long), shortdesc: shortdesc)
                 navigationController?.popViewController(animated: true)
                 return
                 
