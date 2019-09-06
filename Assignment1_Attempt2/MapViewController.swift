@@ -67,19 +67,29 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
         
         allSights = (databaseController?.fetchAllPlaces())!
         
+        //Top Stop monitoring all locations (i.e refreshing all geofences)
+        let existingGeofences = locationManager.monitoredRegions
+        
+        for geofence in existingGeofences{
+            locationManager.stopMonitoring(for: geofence)
+        }
+        
         for sight in allSights {
             //print(sight.name!)
             let location = LocationAnnotation(newTitle: sight.name!, newSubtitle: sight.shortdesc!, lat: sight.lat, long: sight.long, icon: sight.icon!, image: sight.photo!)
             self.mapView.addAnnotation(location)
-            geoLocation = CLCircularRegion(center: location.coordinate, radius: 50000,
+            geoLocation = CLCircularRegion(center: location.coordinate, radius: 50,
                                            identifier: location.title!)
             
             
-            
+            //testing geolocation
+            geoLocation.notifyOnEntry = true
+            geoLocation.notifyOnExit = true
+            locationManager.startMonitoring(for: geoLocation)
             //focusOn(annotation: location)
         }
-        geoLocation.notifyOnExit = true
-        locationManager.startMonitoring(for: geoLocation)
+       
+        
         
         
         //
@@ -88,10 +98,32 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
         
     }
     
+    func startMonitoring(_ manager:CLLocationManager, region:CLCircularRegion) {
+        if !CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
+            print("Cannot monitor location")
+            return
+        }
+        if CLLocationManager.authorizationStatus() != .authorizedAlways {
+            print("Please grant access")
+        } else {
+            let locationManager = CLLocationManager()
+            locationManager.startMonitoring(for: region)
+        }
+    }
+
+    
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region:
         CLRegion) {
-        let alert = UIAlertController(title: "Movement Detected!", message: "You have left Monash Caulfield", preferredStyle:
+        let alert = UIAlertController(title: "Movement Detected!", message: "You have left \(region.identifier)", preferredStyle:
+            UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style:
+            UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        let alert = UIAlertController(title: "Movement Detected!", message: "You have entered \(region.identifier)", preferredStyle:
             UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Ok", style:
             UIAlertAction.Style.default, handler: nil))
