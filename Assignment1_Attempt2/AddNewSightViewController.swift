@@ -55,6 +55,9 @@
             
             pickerData = ["red","green","blue"]
             
+            
+            
+            
             //Get the database controller once from the App Delegate
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             databaseController = appDelegate.databaseController
@@ -112,37 +115,6 @@
             annotation.subtitle = "subtitle"
             self.mapView.addAnnotation(annotation)
         }
-        
-        
-        
-        //        //reference: https://stackoverflow.com/questions/3959994/how-to-add-a-push-pin-to-a-mkmapviewios-when-touching
-        //        @objc func handleLongPress(_ gestureRecognizer : UIGestureRecognizer){
-        //            //        if annotationCount > 1 {
-        //            //            mapView.removeAnnotations(mapView.annotations)
-        //            //            annotationCount = 0
-        //            //        }
-        //
-        //            //        if self.mapView.annotations.count > 1{
-        //            //             //mapView.removeAnnotations(mapView.an)
-        //            //            mapView.removeAnnotation(mapView.annotations[0])
-        //            //            //mapView.annotations.remove(at: 0)
-        //            //        }
-        //            if gestureRecognizer.state != .began { return }
-        //
-        //            let touchPoint = gestureRecognizer.location(in: mapView)
-        //            let touchMapCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-        //
-        //            //let album = LocationAnnotation(coordinate: touchMapCoordinate, context: CFTreeContext)
-        //            let album = LocationAnnotation(newTitle: "Add Location", newSubtitle: "", lat: touchMapCoordinate.latitude, long: touchMapCoordinate.longitude)
-        //            mapView.addAnnotation(album)
-        //            if self.mapView.annotations.count == 2{
-        //                //mapView.removeAnnotations(mapView.an)
-        //                mapView.removeAnnotation(mapView.annotations[0])
-        //                //mapView.annotations.remove(at: 0)
-        //            }
-        //            print("YES \(self.mapView.annotations.count)")
-        //
-        //        }
         
         @IBAction func imageClicked(_ sender: Any) {
             let changePhotoAlert = UIAlertController(title: "Change Photo", message: "You can change the photo of this location to the one you desire!", preferredStyle: UIAlertController.Style.actionSheet)
@@ -220,26 +192,10 @@
                 let lat = tempLat
                 let long = tempLong
                 let shortdesc = "User added location"
-                //let lat = annotation.coordinate.latitude
-                //let long = annotation.coordinate.longitude
-                //let long = mapView.annotations.
-                //let sight = Sight(sightName: name, sightDesc: desc, sightIcon: icon)
-                //let _ = sightDelegate?.addSight(newSight: sight)
                 let _ = databaseController!.addSight(name: name, desc: desc, icon: icon, photo: picture, lat : Double(lat) , long : Double(long), shortdesc: shortdesc)
                 navigationController?.popViewController(animated: true)
                 return
                 
             }
         }
-        
-        /*
-         // MARK: - Navigation
-         
-         // In a storyboard-based application, you will often want to do a little preparation before navigation
-         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         // Get the new view controller using segue.destination.
-         // Pass the selected object to the new view controller.
-         }
-         */
-        
     }

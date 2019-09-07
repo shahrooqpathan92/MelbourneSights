@@ -14,16 +14,19 @@ class SightDetailsViewController: UIViewController, MKMapViewDelegate {
     var sight: Place?
     
     @IBOutlet weak var sightName: UILabel!
-    @IBOutlet weak var sightDetails: UILabel!
     
+    
+    @IBOutlet weak var sightDetails: UITextView!
     @IBOutlet weak var sightPhoto: UIImageView!
     @IBOutlet weak var mapView: MKMapView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("sight details = 1")
         mapView.removeAnnotations(mapView.annotations)
+        //Making the sight details not editable
+        sightDetails.isEditable = false
+        
         if sight != nil {
             sightName.text = sight?.name
             sightDetails.text = sight?.desc

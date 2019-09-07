@@ -13,11 +13,6 @@ enum DatabaseChange{
     
 }
 
-//enum ListenerType{
-//    case sight
-//    case all
-//}
-
 protocol DatabaseListener: AnyObject {
     //var listenerType: ListenerType {get set}
     func onSightListChange(change: DatabaseChange, sights: [Place])

@@ -28,8 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         UNUserNotificationCenter.current().delegate = self
+        //Setting Navigation bar color
+        //ref: Lecture week 4 slides
+        let uiProxy = UINavigationBar.appearance()
+        uiProxy.barTintColor = UIColor(red:0.47, green:0.68, blue:0.86, alpha:1.0)
+        uiProxy.tintColor = UIColor.white
+        uiProxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         
-            
+        
         return true
     }
 

@@ -30,12 +30,10 @@ class EditSightViewController: UIViewController, UIImagePickerControllerDelegate
     
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var desc: UITextField!
-    //@IBOutlet weak var icon: UITextField!
     
     @IBOutlet weak var iconPicker: UIPickerView!
     @IBOutlet weak var photo: UIImageView!
     
-    //@IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var mapView: MKMapView!
     var sight: Place?
@@ -131,18 +129,18 @@ class EditSightViewController: UIViewController, UIImagePickerControllerDelegate
         }
         
         
-//        //Reference: https://stackoverflow.com/questions/33188663/how-to-drag-an-annotation-with-mkmapview-being-dragged-ios
+        //Reference: https://stackoverflow.com/questions/33188663/how-to-drag-an-annotation-with-mkmapview-being-dragged-ios
         let coordinate = CLLocationCoordinate2DMake((sight?.lat)!, (sight?.long)!)
         let span = MKCoordinateSpan.init(latitudeDelta: 0.003, longitudeDelta: 0.003)
         let region = MKCoordinateRegion.init(center: coordinate, span: span)
         mapView.setRegion(region, animated:true)
-
-
+        
+        
         annotation.coordinate = coordinate
         annotation.title = sight?.name
         annotation.subtitle = sight?.shortdesc
         self.mapView.addAnnotation(annotation)
-
+        
         
         
         
@@ -196,12 +194,7 @@ class EditSightViewController: UIViewController, UIImagePickerControllerDelegate
         
         return image
     }
-    
-    
-    
-    
-    
-    
+ 
     @IBAction func cancelSightChanges(_ sender: Any) {
         //self.navigationController?.popToViewController( UIViewController, animated: true)
         navigationController?.popViewController(animated: true)
@@ -235,15 +228,9 @@ class EditSightViewController: UIViewController, UIImagePickerControllerDelegate
             sight?.long = tempLong!
         }
         
-        
-        
         let _ = databaseController!.updateSight()
         
         navigationController?.popViewController(animated: true)
-        
-        
-        
-        
         
     }
     /*

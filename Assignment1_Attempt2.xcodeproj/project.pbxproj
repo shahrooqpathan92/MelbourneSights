@@ -17,7 +17,6 @@
 		00720BB0231A696C00C82984 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00720BAE231A696C00C82984 /* Main.storyboard */; };
 		00720BB2231A697000C82984 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00720BB1231A697000C82984 /* Assets.xcassets */; };
 		00720BB5231A697000C82984 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00720BB3231A697000C82984 /* LaunchScreen.storyboard */; };
-		00720BBD231A6A0F00C82984 /* Sight_OLD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00720BBC231A6A0F00C82984 /* Sight_OLD.swift */; };
 		00720BBF231A6A7A00C82984 /* SightListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00720BBE231A6A7A00C82984 /* SightListTableViewController.swift */; };
 		00720BC1231A787700C82984 /* SightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00720BC0231A787700C82984 /* SightTableViewCell.swift */; };
 		00A7CCA52320332700CF4C58 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A7CCA42320332700CF4C58 /* MapViewController.swift */; };
@@ -42,7 +41,6 @@
 		00720BB1231A697000C82984 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00720BB4231A697000C82984 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00720BB6231A697000C82984 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00720BBC231A6A0F00C82984 /* Sight_OLD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sight_OLD.swift; sourceTree = "<group>"; };
 		00720BBE231A6A7A00C82984 /* SightListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightListTableViewController.swift; sourceTree = "<group>"; };
 		00720BC0231A787700C82984 /* SightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightTableViewCell.swift; sourceTree = "<group>"; };
 		00A7CCA42320332700CF4C58 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -113,7 +111,6 @@
 				00720BB1231A697000C82984 /* Assets.xcassets */,
 				00720BB3231A697000C82984 /* LaunchScreen.storyboard */,
 				00720BB6231A697000C82984 /* Info.plist */,
-				00720BBC231A6A0F00C82984 /* Sight_OLD.swift */,
 				00720BBE231A6A7A00C82984 /* SightListTableViewController.swift */,
 				00720BC0231A787700C82984 /* SightTableViewCell.swift */,
 				00BEC13F231BAF9B00A8286A /* SightDetailsViewController.swift */,
@@ -218,7 +215,6 @@
 				0037DA0B231E354500B0AF39 /* CoreDataController.swift in Sources */,
 				0037DA07231E2A6400B0AF39 /* DatabaseProtocol.swift in Sources */,
 				00720BAB231A696C00C82984 /* AppDelegate.swift in Sources */,
-				00720BBD231A6A0F00C82984 /* Sight_OLD.swift in Sources */,
 				00A7CCA52320332700CF4C58 /* MapViewController.swift in Sources */,
 				00720BC1231A787700C82984 /* SightTableViewCell.swift in Sources */,
 			);
