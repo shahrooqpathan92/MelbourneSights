@@ -39,13 +39,10 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
     @IBAction func sort(_ sender: UISegmentedControl) {
         //Sorting by ascending
         if sender.selectedSegmentIndex == 0 {
-            print("Segment 0")
-            //filteredSights = filteredSights.sorted(by: { $0.name?.lowercased() < $1.name?.lowercased() })
             filteredSights = filteredSights.sorted{ $0.name!.lowercased() < $1.name!.lowercased() }
         }
         //Sorting by descending
         if sender.selectedSegmentIndex == 1 {
-            print("Segment 1")
             filteredSights = filteredSights.sorted{ $0.name!.lowercased() > $1.name!.lowercased() }
         }
         tableView.reloadData()
@@ -170,9 +167,16 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
         
     }
     
-    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if indexPath.section == SECTION_COUNT || indexPath.section == SECTION_SORT {
+            return UITableViewCell.EditingStyle.none
+        }else{
+            return UITableViewCell.EditingStyle.delete
+        }
+        
+    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == SECTION_COUNT {
+        if indexPath.section == SECTION_COUNT || indexPath.section == SECTION_SORT {
             tableView.deselectRow(at: indexPath, animated: false)
             return
         }
