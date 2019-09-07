@@ -23,17 +23,17 @@ class SightListTableViewController: UITableViewController , UISearchResultsUpdat
     @IBAction func goToMap(_ sender: Any) {
          self.navigationController?.popViewController(animated: true)
     }
-    
-    func addSight(newSight: Place) -> Bool {
-        allSights.append(newSight)
-        filteredSights.append(newSight)
-        tableView.beginUpdates()
-        tableView.insertRows(at: [IndexPath(row: filteredSights.count - 1 , section: 0)], with: .automatic)
-        tableView.endUpdates()
-        tableView.reloadSections([SECTION_COUNT], with: .automatic)
-        print("does it come here")
-        return true
-    }
+//
+//    func addSight(newSight: Place) -> Bool {
+//        allSights.append(newSight)
+//        filteredSights.append(newSight)
+//        tableView.beginUpdates()
+//        tableView.insertRows(at: [IndexPath(row: filteredSights.count - 1 , section: 0)], with: .automatic)
+//        tableView.endUpdates()
+//        tableView.reloadSections([SECTION_COUNT], with: .automatic)
+//        print("does it come here")
+//        return true
+//    }
     
     //Function to sort based on segment
     @IBAction func sort(_ sender: UISegmentedControl) {

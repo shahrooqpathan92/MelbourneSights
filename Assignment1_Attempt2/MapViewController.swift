@@ -88,16 +88,7 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
         //Setting the user location
         mapView.showsUserLocation = true
         //Checking if the default sight is nil
-        if focusedSight == nil {
-            let zoomRegion = MKCoordinateRegion(center: .init(latitude: -37.8183, longitude: 144.9671), latitudinalMeters: 1000, longitudinalMeters: 1000)
-            mapView.setRegion(mapView.regionThatFits(zoomRegion), animated: true)
-            mapView.setCenter(CLLocationCoordinate2DMake(-37.8183, 144.9671), animated: true)
-            print("DEFAULT ZOOM")
-        }
-        else {
-            print("To implement map zoom")
-            focusOn(annotation: LocationAnnotation(newTitle: (focusedSight?.name)!, newSubtitle: (focusedSight?.icon)!, lat: (focusedSight?.lat)!, long: (focusedSight?.long)!, icon: (focusedSight?.icon)!, image: (focusedSight?.photo)!))
-        }
+        
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
@@ -126,6 +117,17 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
             locationManager.startMonitoring(for: geoLocation)
             //focusOn(annotation: location)
             
+        }
+                
+        if focusedSight == nil {
+            let zoomRegion = MKCoordinateRegion(center: .init(latitude: -37.8183, longitude: 144.9671), latitudinalMeters: 1000, longitudinalMeters: 1000)
+            mapView.setRegion(mapView.regionThatFits(zoomRegion), animated: true)
+            mapView.setCenter(CLLocationCoordinate2DMake(-37.8183, 144.9671), animated: true)
+            print("DEFAULT ZOOM")
+        }
+        else {
+            print("To implement map zoom")
+            focusOn(annotation: LocationAnnotation(newTitle: (focusedSight?.name)!, newSubtitle: (focusedSight?.icon)!, lat: (focusedSight?.lat)!, long: (focusedSight?.long)!, icon: (focusedSight?.icon)!, image: (focusedSight?.photo)!))
         }
         
     }
@@ -203,7 +205,7 @@ class MapViewController: UIViewController, DatabaseListener, MKMapViewDelegate, 
     func focusOn(annotation: MKAnnotation) {
         mapView.selectAnnotation(annotation, animated: true)
         
-        let zoomRegion = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        let zoomRegion = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
         mapView.setRegion(mapView.regionThatFits(zoomRegion), animated: true)
     }
     
